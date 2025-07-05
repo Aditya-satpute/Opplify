@@ -69,7 +69,7 @@ export const Header: React.FC = () => {
             <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
               Login
             </button>
-            <button className="border border-gray-300 px-3 py-2 rounded-lg hidden md:flex hover:bg-gray-100">
+            <button className="items-center border border-gray-300 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors hidden md:flex">
               <Plus className="h-4 w-4 mr-1" />
               <span>Connect with us</span>
             </button>
