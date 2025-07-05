@@ -1,9 +1,14 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { HomePage } from '../pages/HomePage';
+
 
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
+      {/* Home Page */}
+      <Route path="/" element={<HomePage />} />
+
       {/* Catch-all route for 404 */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
