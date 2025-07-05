@@ -73,7 +73,7 @@ export const Header: React.FC = () => {
               <Plus className="h-4 w-4 mr-1" />
               <span>Connect with us</span>
             </button>
-            <button className="bg-amber-100 border border-amber-300 px-3 py-2 rounded-lg text-amber-800 hidden md:flex hover:bg-amber-200">
+            <button className="items-center bg-amber-100 border border-amber-300 px-3 py-2 rounded-lg text-amber-800 hover:bg-amber-200 transition-colors hidden md:flex">
               <BriefcaseBusiness className="h-4 w-4 mr-1" />
               <span>Premium</span>
             </button>

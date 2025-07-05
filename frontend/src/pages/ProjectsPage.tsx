@@ -1,17 +1,23 @@
 import React, { useState, ChangeEvent, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
+import ProjectsGrid from '../components/ProjectsGrid';
 
-// 1. Define the Project type
+// Project type (same as before)
 type Project = {
   id: number;
   title: string;
   description: string;
   tech: string[];
   url: string;
+  user: {
+    name: string;
+    avatar: string;
+    profileUrl: string;
+  };
 };
 
-// 2. Example projects data (replace with your actual/fetched data)
 const projects: Project[] = [
   {
     id: 1,
@@ -19,6 +25,11 @@ const projects: Project[] = [
     description: "A personal portfolio website built with React and Tailwind CSS.",
     tech: ["React", "Tailwind CSS", "Vercel"],
     url: "https://github.com/yourusername/portfolio",
+    user: {
+      name: "Alice Johnson",
+      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      profileUrl: "https://github.com/alicejohnson"
+    }
   },
   {
     id: 2,
@@ -26,6 +37,11 @@ const projects: Project[] = [
     description: "A real-time chat application using Socket.io and Node.js.",
     tech: ["Node.js", "Socket.io", "Express", "React"],
     url: "https://github.com/yourusername/chat-app",
+    user: {
+      name: "Bob Smith",
+      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      profileUrl: "https://github.com/bobsmith"
+    }
   },
   {
     id: 3,
@@ -33,22 +49,14 @@ const projects: Project[] = [
     description: "RESTful API for an e-commerce platform with JWT authentication.",
     tech: ["Node.js", "Express", "MongoDB", "JWT"],
     url: "https://github.com/yourusername/ecommerce-api",
+    user: {
+      name: "Carol Lee",
+      avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      profileUrl: "https://github.com/carollee"
+    }
   },
   // Add more projects as needed
 ];
-
-// 3. Tech tag color mapping
-const techColors: Record<string, string> = {
-  "React": "bg-blue-100 text-blue-800",
-  "Tailwind CSS": "bg-teal-100 text-teal-800",
-  "Vercel": "bg-black text-white",
-  "Node.js": "bg-green-100 text-green-800",
-  "Socket.io": "bg-gray-100 text-gray-800",
-  "Express": "bg-gray-200 text-gray-900",
-  "MongoDB": "bg-green-200 text-green-900",
-  "JWT": "bg-yellow-100 text-yellow-800",
-  // Add more tech colors as needed
-};
 
 const getAllTechs = (projects: Project[]) =>
   Array.from(new Set(projects.flatMap((p) => p.tech))).sort();
@@ -69,6 +77,20 @@ const FilterIcon = () => (
     />
   </svg>
 );
+
+// Upload Project Button Component
+const UploadProjectButton: React.FC = () => {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => navigate("/upload-project")}
+      className="px-6 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition font-semibold"
+      type="button"
+    >
+      Upload Project
+    </button>
+  );
+};
 
 const ProjectsPage: React.FC = () => {
   const [search, setSearch] = useState<string>("");
@@ -127,121 +149,86 @@ const ProjectsPage: React.FC = () => {
 
   return (
     <>
-    <Header/>
-    <div className="min-h-screen bg-neutral-50">
-      {/* Header Section */}
-      <section className="py-16 md:py-20 px-4 bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
-            Explore Projects from GitHub
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Browse, search, and filter through a curated list of projects. Discover their tech stacks and dive into the code!
-          </p>
-          {/* Search + Filter Controls */}
-          <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-4 w-full max-w-2xl mx-auto">
-            <input
-              type="text"
-              className="w-full md:w-2/3 px-4 py-2 border border-neutral-200 rounded-lg shadow-sm focus:outline-none focus:border-blue-400 transition"
-              placeholder="Search projects by name, description, or tech..."
-              value={search}
-              onChange={handleSearch}
-            />
-            <div className="relative w-full md:w-auto">
-              <button
-                onClick={() => setShowFilter((prev) => !prev)}
-                className="flex items-center justify-center w-full md:w-auto px-4 py-2 bg-white border border-neutral-200 rounded-lg shadow-sm text-neutral-700 hover:bg-neutral-100 transition focus:outline-none"
-                type="button"
-              >
-                <FilterIcon />
-                Filter
-                {selectedTechs.length > 0 && (
-                  <span className="ml-2 px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
-                    {selectedTechs.length}
-                  </span>
-                )}
-              </button>
-              {/* Filter Dropdown */}
-              {showFilter && (
-                <div
-                  ref={filterRef}
-                  className="absolute z-20 mt-2 right-0 w-56 bg-white border border-neutral-200 rounded-xl shadow-lg p-4"
+      <Header />
+      <div className="min-h-screen bg-neutral-50">
+        {/* Header Section */}
+        <section className="py-16 md:py-20 px-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+          <div className="container mx-auto max-w-4xl text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
+              Explore Projects from GitHub
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              Browse, search, and filter through a curated list of projects. Discover their tech stacks and dive into the code!
+            </p>
+            {/* Search + Filter Controls */}
+            <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-4 w-full max-w-2xl mx-auto">
+              <input
+                type="text"
+                className="w-full md:w-2/3 px-4 py-2 border border-neutral-200 rounded-lg shadow-sm focus:outline-none focus:border-blue-400 transition"
+                placeholder="Search projects by name, description, or tech..."
+                value={search}
+                onChange={handleSearch}
+              />
+              <div className="relative w-full md:w-auto">
+                <button
+                  onClick={() => setShowFilter((prev) => !prev)}
+                  className="flex items-center justify-center w-full md:w-auto px-4 py-2 bg-white border border-neutral-200 rounded-lg shadow-sm text-neutral-700 hover:bg-neutral-100 transition focus:outline-none"
+                  type="button"
                 >
-                  <div className="text-sm font-semibold mb-2 text-neutral-700">
-                    Filter by Tech Stack
-                  </div>
-                  <div className="max-h-48 overflow-y-auto flex flex-col gap-2 mb-4">
-                    {allTechs.map((tech) => (
-                      <label key={tech} className="flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={selectedTechs.includes(tech)}
-                          onChange={() => handleTechChange(tech)}
-                          className="form-checkbox accent-blue-600 mr-2"
-                        />
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${techColors[tech] || "bg-gray-100 text-gray-800"}`}>
-                          {tech}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                  <button
-                    onClick={clearFilters}
-                    className="w-full px-3 py-2 rounded-lg bg-neutral-200 text-neutral-700 text-sm font-medium hover:bg-neutral-300 transition"
-                    type="button"
+                  <FilterIcon />
+                  Filter
+                  {selectedTechs.length > 0 && (
+                    <span className="ml-2 px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
+                      {selectedTechs.length}
+                    </span>
+                  )}
+                </button>
+                {/* Filter Dropdown */}
+                {showFilter && (
+                  <div
+                    ref={filterRef}
+                    className="absolute z-20 mt-2 right-0 w-56 bg-white border border-neutral-200 rounded-xl shadow-lg p-4"
                   >
-                    Clear Filters
-                  </button>
-                </div>
-              )}
+                    <div className="text-sm font-semibold mb-2 text-neutral-700">
+                      Filter by Tech Stack
+                    </div>
+                    <div className="max-h-48 overflow-y-auto flex flex-col gap-2 mb-4">
+                      {allTechs.map((tech) => (
+                        <label key={tech} className="flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={selectedTechs.includes(tech)}
+                            onChange={() => handleTechChange(tech)}
+                            className="form-checkbox accent-blue-600 mr-2"
+                          />
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800`}>
+                            {tech}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                    <button
+                      onClick={clearFilters}
+                      className="w-full px-3 py-2 rounded-lg bg-neutral-200 text-neutral-700 text-sm font-medium hover:bg-neutral-300 transition"
+                      type="button"
+                    >
+                      Clear Filters
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* Upload Project Button Section */}
+            <div className="flex justify-center mt-6">
+              <UploadProjectButton />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Projects Grid */}
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredProjects.length === 0 && (
-            <div className="col-span-full text-neutral-500 text-center">
-              No projects found.
-            </div>
-          )}
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="bg-white rounded-2xl shadow-md border border-neutral-100 p-6 flex flex-col justify-between transition hover:shadow-lg hover:-translate-y-1"
-            >
-              <div>
-                <h3 className="text-xl font-semibold text-neutral-900 mb-2">{project.title}</h3>
-                <p className="text-neutral-700 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className={`px-2 py-1 rounded-full text-xs font-medium ${techColors[tech] || "bg-gray-100 text-gray-800"}`}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg font-medium shadow hover:bg-blue-700 transition"
-                >
-                  View Project
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Projects Grid */}
+        <ProjectsGrid projects={filteredProjects} />
       </div>
-    </div>
-    <Footer/>
+      <Footer />
     </>
   );
 };
