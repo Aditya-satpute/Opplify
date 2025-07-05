@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
 import { PortfolioPage } from '../pages/PortfolioPage';
+import ProjectsPage from '../pages/ProjectsPage';
 
 
 export const AppRoutes: React.FC = () => {
@@ -12,6 +13,7 @@ export const AppRoutes: React.FC = () => {
 
       {/* Portfolio Routes */}
       <Route path="/portfolio" element={<PortfolioPage />} />
+      <Route path="/projects" element={<ProjectsPage />} />
 
       {/* Catch-all route for 404 */}
       <Route path="*" element={<NotFoundPage />} />
