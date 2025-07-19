@@ -26,21 +26,21 @@ const projects: Project[] = [
     tech: ["React", "Tailwind CSS", "Vercel"],
     url: "https://github.com/yourusername/portfolio",
     user: {
-      name: "Alice Johnson",
+      name: "Karina Sharma",
       avatar: "https://randomuser.me/api/portraits/women/44.jpg",
       profileUrl: "https://github.com/alicejohnson"
     }
   },
   {
     id: 2,
-    title: "Chat App",
+    title: "Portfolio Website",
     description: "A real-time chat application using Socket.io and Node.js.",
     tech: ["Node.js", "Socket.io", "Express", "React"],
-    url: "https://github.com/yourusername/chat-app",
+    url: "https://github.com/Aditya-satpute/Portfolio",
     user: {
-      name: "Bob Smith",
+      name: "Aditya Satpute",
       avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-      profileUrl: "https://github.com/bobsmith"
+      profileUrl: "https://github.com/Aditya-satpute"
     }
   },
   {
@@ -50,7 +50,7 @@ const projects: Project[] = [
     tech: ["Node.js", "Express", "MongoDB", "JWT"],
     url: "https://github.com/yourusername/ecommerce-api",
     user: {
-      name: "Carol Lee",
+      name: "Tanishka",
       avatar: "https://randomuser.me/api/portraits/women/68.jpg",
       profileUrl: "https://github.com/carollee"
     }
@@ -83,7 +83,7 @@ const UploadProjectButton: React.FC = () => {
   const navigate = useNavigate();
   return (
     <button
-      onClick={() => navigate("/upload-project")}
+      onClick={() => navigate("/upload")}
       className="px-6 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition font-semibold"
       type="button"
     >
