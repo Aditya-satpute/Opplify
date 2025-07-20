@@ -89,7 +89,7 @@ PORT=5000
 MONGO_URI=your_mongo_connection_string
 
 ## Folder Structure
-
+```plaintext
 Opplify/
 │
 ├── frontend/                     # React frontend
@@ -111,7 +111,7 @@ Opplify/
 │   └── index.js                 # Main backend entry file (Express server)
 │
 └── README.md                     # Project documentation (this file)
-
+```
 ## API Endpoints
 
 > Base URL for all API requests: `http://localhost:5000/api`
